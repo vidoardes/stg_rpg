@@ -18,7 +18,7 @@ class Trader(NonPlayableCharacter):
         self.inventory = []
 
         crusty_bread_qty = random.randint(0, 5)
-        potion_qty = random.randint(0, 5)
+        potion_qty = random.randint(0, 4)
         hi_potion_qty = random.randint(0, 3)
         x_potion_qty = random.randint(0, 2)
 
@@ -37,4 +37,4 @@ class Trader(NonPlayableCharacter):
 
         if item_picker > 9:
             for i in range(x_potion_qty):
-                self.inventory.append(items.XPotion())    
+                self.inventory.append(items.XPotion())

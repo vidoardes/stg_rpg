@@ -92,22 +92,21 @@ class TraderTile(MapTile):
         super().__init__(x, y)
 
     def trade(self, buyer, seller):
-        print(seller.inventory)
         for i, item in enumerate(seller.inventory, 1):
             print("{}. {} - {} Gold".format(i, item.name, item.value))
         
-            while True:
-                user_input = input("Choose an item or press Q to exit: ")
-                
-                if user_input in ['Q', 'q']:
-                    return
-                else:
-                    try:
-                        choice = int(user_input)
-                        to_swap = seller.inventory[choice - 1]
-                        self.swap(seller, buyer, to_swap)
-                    except ValueError:
-                        print("Invalid choice!")
+        while True:
+            user_input = input("\nChoose an item or press Q to exit: ")
+            
+            if user_input in ['Q', 'q']:
+                return
+            else:
+                try:
+                    choice = int(user_input)
+                    to_swap = seller.inventory[choice - 1]
+                    self.swap(seller, buyer, to_swap)
+                except ValueError:
+                    print("Invalid choice!")
 
     def swap(self, seller, buyer, item):
         if item.value > buyer.gold:
@@ -128,10 +127,10 @@ class TraderTile(MapTile):
             if user_input in ['Q', 'q']:
                 return
             elif user_input in ['B', 'b']:
-                print("Here's whats available to buy: ")
+                print("Here's whats available to buy:\n")
                 self.trade(buyer=player, seller=self.trader)
             elif user_input in ['S', 's']:
-                print("Here's whats available to sell: ")
+                print("Here's whats available to sell:\n")
                 self.trade(buyer=self.trader, seller=player)
             else:
                 print("Invalid choice!")
