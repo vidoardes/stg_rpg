@@ -81,7 +81,7 @@ class EnemyRoom(MapTile):
     def modify_player(self, the_player):
         if self.enemy.is_alive():
             the_player.hp = the_player.hp - self.enemy.damage
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
+            print("Enemy does {} damage. You have {} HP remaining.\n".format(self.enemy.damage, the_player.hp))
 
     def available_actions(self):
         if self.enemy.is_alive():
@@ -108,7 +108,7 @@ class SpiderRoom(EnemyRoom):
     def intro_text(self):
         if self.enemy.is_alive():
             return """
-            A giant spider jumps down from its web in front of you!
+            \nA giant spider jumps down from its web in front of you!
             """
         else:
             return """
@@ -123,7 +123,7 @@ class OgreRoom(EnemyRoom):
     def intro_text(self):
         if self.enemy.is_alive():
             return """
-            A giant orge blocks your path!
+           \n A giant orge blocks your path!
             """
         else:
             return """
@@ -137,7 +137,7 @@ class DaggerRoom(LootRoom):
 
     def intro_text(self):
         return """
-        Your notice something shiny in the corner.
+        \nYour notice something shiny in the corner.
         It's a dagger! You pick it up.
         """
 
@@ -148,5 +148,6 @@ class GoldRoom(LootRoom):
 
     def intro_text(self):
         return """
-        You've found a pile of coins!.
+        \nYou've found a pile of coins!
+        I have no idea who left them there, but hey look fair game to me!
         """

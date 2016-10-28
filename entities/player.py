@@ -15,7 +15,7 @@ class Player:
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
-
+        
     def move_north(self):
         self.move(dx=0, dy=-1)
 
@@ -58,11 +58,11 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = world.tile_at(self.x, self.y)
         enemy = room.enemy
-        print("You use {} against {}!".format(best_weapon.name, enemy.name))
+        print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
 
         if not enemy.is_alive():
-            print("You killed {}!".format(enemy.name))
+            print("\nYou killed {}!".format(enemy.name))
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))
 

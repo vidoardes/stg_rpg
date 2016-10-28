@@ -1,21 +1,54 @@
-"""Escape from Cave Terror!"""
+"Escape from Cave Terror!"""
+import os
 import operator
 from collections import OrderedDict
 
 from entities.player import Player
 import maps.world as world
 
+clear = lambda: os.system('cls')
 
-def play():
+def main_menu():
+    menu_choice = None
+
+    clear()
+
+    print(" ________________________________________________________________________________________________ ")
+    print("|                                                                                                |") 
+    print("|  S)ssss                              T)tttttt h)                   G)gggg ##         l)L   !)  |") 
+    print("| S)    ss                                T)    h)                  G)                  l)  !)11 |") 
+    print("|  S)ss    a)AAAA  v)    VV e)EEEEE       T)    h)HHHH  e)EEEEE    G)  ggg  i)  r)RRR   l)  !)11 |") 
+    print("|      S)   a)AAA   v)  VV  e)EEEE        T)    h)   HH e)EEEE     G)    gg i) r)   RR  l)   !)  |") 
+    print("| S)    ss a)   A    v)VV   e)            T)    h)   HH e)          G)   gg i) r)       l)       |") 
+    print("|  S)ssss   a)AAAA    v)     e)EEEE       T)    h)   HH  e)EEEE      G)ggg  i) r)      l)LL  !)  |") 
+    print("|________________________________________________________________________________________________|")
+
+    print("\n      You are \"The Guy\" and everything was great, until \"The Villan\" came along and took your")
+    print("      girl! Run through dungeons and battle creatures to rescue \"The Girl\" and save the day!")
+    print("\n             1. Start New Game")
+    print("             2. Exit")
+
+    while True:
+        menu_choice = input('\n>>> ')
+
+        if menu_choice == '2':
+            clear()
+            print("Thanks for playing!")
+            exit()
+        elif menu_choice == '1':
+            start_new_game()
+        else:
+            print("\nInvalid Option")
+
+def start_new_game():
+    clear()
     world.parse_world_dsl("maps/level1.map")
     player = Player()
-    print("Escape from Cave Terror!")
 
     while True:
         room = world.tile_at(player.x, player.y)
         print(room.intro_text())
         room.modify_player(player)
-        print(room.x + ' ' + room.y)
         choose_action(room, player)
 
 def get_player_command():
@@ -23,7 +56,7 @@ def get_player_command():
 
 def get_available_actions(room, player, list_available_actions):
     actions = OrderedDict()
-    print("\nChoose an action (type '?'' for help):\n")
+    print("\nChoose an action (type '?'' for help):")
 
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory)
@@ -60,7 +93,7 @@ def choose_action(room, player):
 
     while not action:
         available_actions = get_available_actions(room, player, list_available_actions)
-        action_input = input("\nAction: ")
+        action_input = input("Action: ")
         action = available_actions.get(action_input)
 
         if action_input == '?':
@@ -71,4 +104,4 @@ def choose_action(room, player):
         else:
             print("You can't do that here")
 
-play()
+main_menu()
