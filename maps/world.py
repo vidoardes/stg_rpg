@@ -18,6 +18,7 @@ class MapTile:
 
 class StartTile(MapTile):
     def intro_text(self):
+        print("LEVEL 1: The Cave")
         return """
         You find yourself in a cave with a flickering torch on the wall.
         You can make out four paths, each equally as dark and foreboding.
@@ -48,25 +49,25 @@ class EnemyTile(MapTile):
 
         if encounter_type < 0.50:
             self.enemy = enemies.GiantSpider()
-            self.alive_text = "A giant spider jumps down from " \
+            self.alive_text = "\nA giant spider jumps down from " \
                               "its web and lands right in front " \
                               "of you!"
-            self.dead_text = "The lifeless corpse of the spider " \
+            self.dead_text = "\nThe lifeless corpse of the spider " \
                              "slumps in the corner. Creepy."
         elif encounter_type < 0.80:
             self.enemy = enemies.Ogre()
-            self.alive_text = "A ogre blocks your path!"
-            self.dead_text = "The orge dies convinietly off of " \
+            self.alive_text = "\nA ogre blocks your path!"
+            self.dead_text = "\nThe oger died convinietly off of " \
                              "the path, out of the way."
         elif encounter_type < 0.95:
             self.enemy = enemies.BatColony()
-            self.alive_text = "Rats. Eeshk..."
-            self.dead_text = "The furry bastards are dead"
+            self.alive_text = "\nRats. Eeshk..."
+            self.dead_text = "\nThe furry bastards are dead"
         else:
             self.enemy = enemies.RockMonster()
-            self.alive_text = "Is it a bird? Is it a plane? no " \
+            self.alive_text = "\nIs it a bird? Is it a plane? no " \
                               "it's a rock monster!"
-            self.dead_text = "You killed a rock. " \
+            self.dead_text = "\nYou killed a rock. " \
                              "Now thats dedication!!"
 
         super().__init__(x, y)
@@ -90,6 +91,7 @@ start_tile_location = None
 tile_type_dict = {"VT": VictoryTile,
                   "EN": EnemyTile,
                   "ST": StartTile,
+                  "NA": BoringTile,
                   "  ": None}
 
 
