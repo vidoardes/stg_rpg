@@ -2,6 +2,7 @@ import sys
 import random
 import configparser
 import entities.enemies as enemies
+import entities.npc as npc
 
 class MapTile:
     def __init__(self, x, y):
@@ -84,6 +85,87 @@ class EnemyTile(MapTile):
             print("Enemy does {} damage. You have {} HP remaining."
                   .format(self.enemy.damage, player.hp))
 
+
+class TraderTile(MapTile):
+    def __init__(self, x, y):
+        self.trader = npc.Trader()
+        super().__init__(x, y)
+
+    def trade(self, buyer, seller):
+        print(seller.inventory)
+        for i, item in enumerate(seller.inventory, 1):
+            print("{}. {} - {} Gold".format(i, item.name, item.value))
+        
+            while True:
+                user_input = input("Choose an item or press Q to exit: ")
+                
+                if user_input in ['Q', 'q']:
+                    return
+                else:
+                    try:
+                        choice = int(user_input)
+                        to_swap = seller.inventory[choice - 1]
+                        self.swap(seller, buyer, to_swap)
+                    except ValueError:
+                        print("Invalid choice!")
+
+    def swap(self, seller, buyer, item):
+        if item.value > buyer.gold:
+            print("That's too expensive")
+            return
+        
+        seller.inventory.remove(item)
+        buyer.inventory.append(item)
+        seller.gold = seller.gold + item.value
+        buyer.gold = buyer.gold - item.value
+        print("Trade complete!")
+
+    def check_if_trade(self, player):
+        while True:
+            print("Would you like to (B)uy, (S)ell, or (Q)uit?")
+            user_input = input()
+            
+            if user_input in ['Q', 'q']:
+                return
+            elif user_input in ['B', 'b']:
+                print("Here's whats available to buy: ")
+                self.trade(buyer=player, seller=self.trader)
+            elif user_input in ['S', 's']:
+                print("Here's whats available to sell: ")
+                self.trade(buyer=self.trader, seller=player)
+            else:
+                print("Invalid choice!")
+
+    def intro_text(self):
+        return """
+        A frail not-quite-human, not-quite-creature squats in the corner
+        clinking his gold coins together. He looks willing to trade.
+        """
+
+
+class FindGoldTile(MapTile):
+    def __init__(self, x, y):
+        self.gold = random.randint(1, 50)
+        self.gold_claimed = False
+        super().__init__(x, y)
+
+    def modify_player(self, player):
+        if not self.gold_claimed:
+            self.gold_claimed = True
+            player.gold = player.gold + self.gold
+            print("+{} gold added.".format(self.gold))
+
+    def intro_text(self):
+        if self.gold_claimed:
+            return """
+            Another unremarkable part of the cave. You must forge onwards.
+            """
+        else:
+            return """
+            Someone dropped some gold. You pick it up.
+            """
+
+
 world_map = []
 
 start_tile_location = None
@@ -92,6 +174,8 @@ tile_type_dict = {"VT": VictoryTile,
                   "EN": EnemyTile,
                   "ST": StartTile,
                   "NA": BoringTile,
+                  "FG": FindGoldTile,
+                  "TT": TraderTile,
                   "  ": None}
 
 

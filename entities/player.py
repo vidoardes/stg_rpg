@@ -15,7 +15,7 @@ class Player:
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
-        
+
     def move_north(self):
         self.move(dx=0, dy=-1)
 
@@ -88,4 +88,7 @@ class Player:
                     valid = True
                 except (ValueError, IndexError):
                     print("Invalid choice, try again.")
-
+    
+    def trade(self):
+        room = world.tile_at(self.x, self.y)
+        room.check_if_trade(self)
