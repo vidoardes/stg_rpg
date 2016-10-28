@@ -1,0 +1,11 @@
+*.py[cod]
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# IDE
+.idea
+*.orig
+*.log
+*.vscode
