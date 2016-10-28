@@ -140,14 +140,3 @@ class DaggerRoom(LootRoom):
         \nYour notice something shiny in the corner.
         It's a dagger! You pick it up.
         """
-
-
-class GoldRoom(LootRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, entities.items.Gold())
-
-    def intro_text(self):
-        return """
-        \nYou've found a pile of coins!
-        I have no idea who left them there, but hey look fair game to me!
-        """
