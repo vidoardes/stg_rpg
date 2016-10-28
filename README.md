@@ -9,6 +9,15 @@ Nothing Yet.
 
 ## Current Features
 * 4 enemy types with random encounters
-* Weapons
+* Multiple weapon types
 * Healing items
 * Customisable maps
+
+## Planned Updates
+* Base stats: ATK, DEF, DEX, LUCK
+* Winning battles earn you loot drops and EXP
+* Leveling system, with enemies leveling along with you
+* Random loot from exploring
+* Trading posts
+* Save Progress
+* More levels!
