@@ -61,12 +61,18 @@ def get_available_actions(room, player, list_available_actions):
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory)
         list_available_actions['i'] = 'Show Inventory'
-    if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
-        action_adder(actions, 'a', player.attack)
-        list_available_actions['a'] = 'Attack!'
+    
     if isinstance(room, world.TraderTile):
         action_adder(actions, 't', player.trade)
         list_available_actions['t'] = 'Trade'
+
+    if player.hp < 100:
+        action_adder(actions, 'h', player.heal)
+        list_available_actions['h'] = 'Heal up'
+
+    if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
+        action_adder(actions, 'a', player.attack)
+        list_available_actions['a'] = 'Attack!'
     else:
         if world.tile_at(room.x, room.y - 1):
             action_adder(actions, 'n', player.move_north)
@@ -80,9 +86,6 @@ def get_available_actions(room, player, list_available_actions):
         if world.tile_at(room.x - 1, room.y):
             action_adder(actions, 'w', player.move_west)
             list_available_actions['w'] = 'Go west'
-        if player.hp < 100:
-            action_adder(actions, 'h', player.heal)
-            list_available_actions['h'] = 'Heal up'
 
     return actions
 
