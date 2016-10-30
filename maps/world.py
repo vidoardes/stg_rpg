@@ -3,6 +3,7 @@ import random
 import configparser
 import entities.enemies as enemies
 import entities.npc as npc
+import entities.player as player
 
 class MapTile:
     def __init__(self, x, y):
@@ -34,6 +35,9 @@ class BoringTile(MapTile):
 
 
 class VictoryTile(MapTile):
+    def modify_player(self, player):
+        player.victory = True
+
     def intro_text(self):
         return """
         You see a bright light in the distance...

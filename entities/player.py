@@ -11,6 +11,14 @@ class Player:
         self.y = world.start_tile_location[1]
         self.hp = 100
         self.gold = 5
+        self.atk_stat = 1
+        self.def_stat = 1
+        self.dex_stat = 1
+        self.luc_stat = 1
+        self.victory = False
+    
+    def is_alive(self):
+        return self.hp > 0
 
     def move(self, dx, dy):
         self.x += dx
