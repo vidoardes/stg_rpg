@@ -1,6 +1,7 @@
 import sys
 import random
 import configparser
+import decimal
 import entities.enemies as enemies
 import entities.npc as npc
 
@@ -86,7 +87,7 @@ class EnemyTile(MapTile):
 
     def modify_player(self, player):
         if self.enemy.is_alive():
-            player.hp = player.hp - self.enemy.damage
+            player.hp = player.hp - round(round(decimal.Decimal(random.uniform(0.85, 1.15)), 2) * self.enemy.damage, 0)
             print("Enemy does {} damage. You have {} HP remaining."
                   .format(self.enemy.damage, player.hp))
 
@@ -99,10 +100,10 @@ class TraderTile(MapTile):
     def trade(self, buyer, seller):
         for i, item in enumerate(seller.inventory, 1):
             print("{}. {} - {} Gold".format(i, item.name, item.value))
-        
+
         while True:
             user_input = input("\nChoose an item or press Q to exit: ")
-            
+
             if user_input in ['Q', 'q']:
                 return
             else:
@@ -117,7 +118,7 @@ class TraderTile(MapTile):
         if item.value > buyer.gold:
             print("That's too expensive")
             return
-        
+
         seller.inventory.remove(item)
         buyer.inventory.append(item)
         seller.gold = seller.gold + item.value
@@ -128,7 +129,7 @@ class TraderTile(MapTile):
         while True:
             print("Would you like to (B)uy, (S)ell, or (Q)uit?")
             user_input = input()
-            
+
             if user_input in ['Q', 'q']:
                 return
             elif user_input in ['B', 'b']:
