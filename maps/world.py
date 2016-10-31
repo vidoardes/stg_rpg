@@ -9,6 +9,7 @@ class MapTile:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.visited = 0
         self.type = ''
 
     def intro_text(self):

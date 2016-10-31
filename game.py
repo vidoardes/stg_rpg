@@ -47,7 +47,11 @@ def start_new_game():
 
     while  player.is_alive() and not player.victory:
         room = world.tile_at(player.x, player.y)
-        print(room.intro_text())
+
+        if room.visited == 0:
+            print(room.intro_text())
+            room.visited = 1
+
         room.modify_player(player)
 
         if player.is_alive() and not player.victory: 

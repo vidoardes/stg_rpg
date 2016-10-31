@@ -21,6 +21,7 @@ class Player:
         return self.hp > 0
 
     def move(self, dx, dy):
+        world.tile_at(self.x, self.y).visited = 0
         self.x += dx
         self.y += dy
 
