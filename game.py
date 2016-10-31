@@ -54,7 +54,7 @@ def start_new_game():
 
         room.modify_player(player)
 
-        if player.is_alive() and not player.victory: 
+        if player.is_alive() and not player.victory:
             choose_action(room, player)
         elif not player.is_alive():
             clear()
@@ -70,7 +70,7 @@ def get_available_actions(room, player, list_available_actions):
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory)
         list_available_actions['i'] = 'Show Inventory'
-    
+
     if isinstance(room, world.TraderTile):
         action_adder(actions, 't', player.trade)
         list_available_actions['t'] = 'Trade'

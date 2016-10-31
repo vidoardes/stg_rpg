@@ -16,7 +16,7 @@ class Player:
         self.dex_stat = 1
         self.luc_stat = 1
         self.victory = False
-    
+
     def is_alive(self):
         return self.hp > 0
 

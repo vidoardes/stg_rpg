@@ -3,7 +3,6 @@ import random
 import configparser
 import entities.enemies as enemies
 import entities.npc as npc
-import entities.player as player
 
 class MapTile:
     def __init__(self, x, y):
@@ -67,7 +66,7 @@ class EnemyTile(MapTile):
                              "the path, out of the way."
         elif encounter_type < 0.95:
             self.enemy = enemies.BatColony()
-            self.alive_text = "\nRats. Eeshk..."
+            self.alive_text = "\nBats. Eeshk..."
             self.dead_text = "\nThe furry bastards are dead"
         else:
             self.enemy = enemies.RockMonster()
