@@ -37,6 +37,7 @@ class BoringTile(MapTile):
 class VictoryTile(MapTile):
     def modify_player(self, player):
         player.victory = True
+        exit()
 
     def intro_text(self):
         return """
