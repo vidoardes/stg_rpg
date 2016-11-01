@@ -8,25 +8,22 @@ import maps.world as world
 
 clear = lambda: os.system('cls')
 
+
 def main_menu():
     menu_choice = None
 
     clear()
+    print("  __________________________________________________________________________________________ ")
+    print(" |  _______                           _______  __                _______  __        __  __  |")
+    print(" | |     __|.---.-..--.--..-----.    |_     _||  |--..-----.    |     __||__|.----.|  ||  | |")
+    print(" | |__     ||  _  ||  |  ||  -__|      |   |  |     ||  -__|    |    |  ||  ||   _||  ||__| |")
+    print(" | |_______||___._| \___/ |_____|      |___|  |__|__||_____|    |_______||__||__|  |__||__| |")
+    print(" |__________________________________________________________________________________________|")
 
-    print(" ________________________________________________________________________________________________ ")
-    print("|                                                                                                |") 
-    print("|  S)ssss                              T)tttttt h)                   G)gggg ##         l)L   !)  |") 
-    print("| S)    ss                                T)    h)                  G)                  l)  !)11 |") 
-    print("|  S)ss    a)AAAA  v)    VV e)EEEEE       T)    h)HHHH  e)EEEEE    G)  ggg  i)  r)RRR   l)  !)11 |") 
-    print("|      S)   a)AAA   v)  VV  e)EEEE        T)    h)   HH e)EEEE     G)    gg i) r)   RR  l)   !)  |") 
-    print("| S)    ss a)   A    v)VV   e)            T)    h)   HH e)          G)   gg i) r)       l)       |") 
-    print("|  S)ssss   a)AAAA    v)     e)EEEE       T)    h)   HH  e)EEEE      G)ggg  i) r)      l)LL  !)  |") 
-    print("|________________________________________________________________________________________________|")
-
-    print("\n      You are \"The Guy\" and everything was great, until \"The Villan\" came along and took your")
-    print("      girl! Run through dungeons and battle creatures to rescue \"The Girl\" and save the day!")
-    print("\n             1. Start New Game")
-    print("             2. Exit")
+    print("\n   You are \"The Guy\" and everything was great, until \"The Villan\" came along and took your")
+    print("    girl! Run through dungeons and battle creatures to rescue \"The Girl\" and save the day!")
+    print("\n              1. Start New Game")
+    print("              2. Exit")
 
     while True:
         menu_choice = input('\n>>> ')
@@ -45,11 +42,12 @@ def start_new_game():
     world.parse_world_dsl("maps/level1.map")
     player = Player()
 
-    while  player.is_alive() and not player.victory:
+    while player.is_alive() and not player.victory:
         room = world.tile_at(player.x, player.y)
 
         if room.visited == 0:
-            print(room.intro_text())
+            clear()
+            room.intro_text()
             room.visited = 1
 
         room.modify_player(player)
@@ -98,9 +96,11 @@ def get_available_actions(room, player, list_available_actions):
 
     return actions
 
+
 def action_adder(action_dict, hotkey, action):
     action_dict[hotkey.lower()] = action
     action_dict[hotkey.upper()] = action
+
 
 def choose_action(room, player):
     action = None
@@ -108,10 +108,11 @@ def choose_action(room, player):
 
     while not action:
         available_actions = get_available_actions(room, player, list_available_actions)
-        action_input = input("Action: ")
+        action_input = input("\nChoose an action (type '?'' for help):")
         action = available_actions.get(action_input)
 
         if action_input == '?':
+            print("")
             for key, name in list_available_actions.items():
                 print(key + ': ' + name)
         elif action:

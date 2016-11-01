@@ -2,8 +2,10 @@ import sys
 import random
 import configparser
 import decimal
+
 import entities.enemies as enemies
 import entities.npc as npc
+
 
 class MapTile:
     def __init__(self, x, y):
@@ -21,18 +23,30 @@ class MapTile:
 
 class StartTile(MapTile):
     def intro_text(self):
-        print("LEVEL 1: The Cave")
-        return """
-        You find yourself in a cave with a flickering torch on the wall.
-        You can make out four paths, each equally as dark and foreboding.
-        """
+        print("\n         ^  ^  ^   ^      ___I_      ^  ^   ^  ^  ^   ^  ^")
+        print("        /|\\/|\\/|\\ /|\\    /\\-_--\\    /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\")
+        print("        /|\\/|\\/|\\ /|\\   /  \\_-__\\   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\")
+        print("        /|\\/|\\/|\\ /|\\   |[]| [] |   /|\\/|\\ /|\\/|\\/|\\ /|\\/|\\")
+        print("\n                     LEVEL 1: The Forest")
+        print("\n       You chase \"The Villain\" to the edge of a forest.")
+        print("    Looks like you are going to have to head in after him....")
 
 
 class BoringTile(MapTile):
     def intro_text(self):
-        return """
-        This is a very boring part of the cave. Fuck all happens here
-        """
+        print("\n                            v .   ._, |_  .,")
+        print("                         `-._\/  .  \ /    |/_")
+        print("                             \\  _\, y | \//")
+        print("                       _\_.___\\, \\/ -.\||")
+        print("                         `7-,--.`._||  / / ,")
+        print("                         /'     `-. `./ / |/_.'")
+        print("                                   |    |//")
+        print("                                   |_    /")
+        print("                                   |-   |")
+        print("                                   |   =|")
+        print("                                   |    |")
+        print("              --------------------/ ,  . \--------._")
+        print("\n This is a very boring part of the forest. Fuck all happens here")
 
 
 class VictoryTile(MapTile):
@@ -41,13 +55,23 @@ class VictoryTile(MapTile):
         exit()
 
     def intro_text(self):
-        return """
-        You see a bright light in the distance...
-        ... it grows as you get closer! It's sunlight!
-
-
-        Victory is yours!
-        """
+        print("\n                                            .''.")
+        print("          .''.             *''*    :_\/_:     .")
+        print("         :_\/_:   .    .:.*_\/_*   : /\ :  .'.:.'.")
+        print("     .''.: /\ : _\(/_  ':'* /\ *  : '..'.  -=:o:=-")
+        print("    :_\/_:'.:::. /)\*''*  .|.* '.\'/.'_\(/_'.':'.'")
+        print("    : /\ : :::::  '*_\/_* | |  -= o =- /)\    '  *")
+        print("     '..'  ':::'   * /\ * |'|  .'/.\'.  '._____")
+        print("         *        __*..* |  |     :      |.   |' .---\"|")
+        print("          _*   .-'   '-. |  |     .--'|  ||   | _|    |")
+        print("       .-'|  _.|  |    ||   '-__  |   |  |    ||      |")
+        print("       |' | |.    |    ||       | |   |  |    ||      |")
+        print("   ____|  '-'     '    ""       '-'   '-.'    '`      |____")
+        print("   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ")
+        print("\n                      You Saved \"The Girl\"!")
+        print("\n You whisk her unto your arms and dissaper in to the sunset!")
+        print("          Lets hope she makes it worth your while ;)")
+        print("\n\n                  Thanks for playing the game!")
 
 
 class EnemyTile(MapTile):
@@ -81,9 +105,21 @@ class EnemyTile(MapTile):
 
     def intro_text(self):
         if self.enemy.is_alive():
-            return self.alive_text
+            print("\n  ___________.___   ________   ___ ___  ___________._.")
+            print("  \\_   _____/|   | /  _____/  /   |   \\ \\__    ___/| |")
+            print("   |    __)  |   |/   \\  ___ /    ~    \\  |    |   | |")
+            print("   |     \\   |   |\\    \\_\\  \\\\    Y    /  |    |    \\|")
+            print("   \\___  /   |___| \\______  / \\___|_  /   |____|    __")
+            print("       \\/                 \\/        \\/              \\/")
+            print(self.alive_text)
         else:
-            return self.dead_text
+            print("  ____   ____.___ _________  ___________________   __________ _____.___.._.")
+            print("  \\   \ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")
+            print("   \\   Y   / |   |/    \\  \\/   |    |    /   |   \\  |       _/ /   |   || |")
+            print("    \\     /  |   |\\     \\____  |    |   /    |    \\ |    |   \\ \\____   | \\|")
+            print("     \\___/   |___| \\______  /  |____|   \\_______  / |____|_  / / ______| __")
+            print("                          \\/                    \\/         \\/  \\/        \\/")
+            print(self.dead_text)
 
     def modify_player(self, player):
         if self.enemy.is_alive():
@@ -142,15 +178,23 @@ class TraderTile(MapTile):
                 print("Invalid choice!")
 
     def intro_text(self):
-        return """
-        A frail not-quite-human, not-quite-creature squats in the corner
-        clinking his gold coins together. He looks willing to trade.
-        """
+        print("\n                      _________##")
+        print("                     @\\\\\\\\\\\\\\\\\\##")
+        print("                    @@@\\\\\\\\\\\\\\\\##\\")
+        print("                   @@ @@\\\\\\\\\\\\\\\\\\\\\\")
+        print("                  @@@@@@@\\\\\\\\\\\\\\\\\\\\\\")
+        print("                 @@@@@@@@@----------|")
+        print("                 @@ @@@ @@__________|")
+        print("                 @@@@@@@@@__________|")
+        print("                 @@@@ .@@@__________|")
+        print("           _\|/__@@@@__@@@__________|__")
+        print("\n                   Trading Post")
+        print("\n               Press \"T\" to trade")
 
 
 class FindGoldTile(MapTile):
     def __init__(self, x, y):
-        self.gold = random.randint(1, 50)
+        self.gold = random.randint(20, 75)
         self.gold_claimed = False
         super().__init__(x, y)
 
@@ -158,17 +202,20 @@ class FindGoldTile(MapTile):
         if not self.gold_claimed:
             self.gold_claimed = True
             player.gold = player.gold + self.gold
-            print("+{} gold added.".format(self.gold))
+            print("\n                You found {} gold coins!".format(self.gold))
 
     def intro_text(self):
+        print("\n           |#######=====================#######|")
+        print("           |#(1)*UNITED STATES OF WHAYEVER*(1)#|")
+        print("           |#**           /===\   ********  **#|")
+        print("           |*# {G}       | (\") |             #*|")
+        print("           |#*  ******   | /v\ |    O N E    *#|")
+        print("           |#(1)          \===/            (1)#|")
+        print("           |##===========SOME GOLD===========##|")
         if self.gold_claimed:
-            return """
-            Another unremarkable part of the cave. You must forge onwards.
-            """
+            print("\n            You've already looted this place!")
         else:
-            return """
-            Someone dropped some gold. You pick it up.
-            """
+            print("\n         Someone dropped some gold. You pick it up.")
 
 
 world_map = []
@@ -201,6 +248,7 @@ def is_dsl_valid(dsl):
 
     return True
 
+
 def parse_world_dsl(map_file):
     level_map = open(map_file, 'r').read()
 
@@ -227,6 +275,7 @@ def parse_world_dsl(map_file):
             row.append(tile_type(x, y) if tile_type else None)
 
         world_map.append(row)
+
 
 def tile_at(x, y):
     if x < 0 or y < 0:
