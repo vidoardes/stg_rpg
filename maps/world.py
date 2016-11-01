@@ -103,6 +103,7 @@ class EnemyTile(MapTile):
 
         self.enemy.hp = self.enemy.randomise_stats(self.enemy.hp)
         self.enemy.damage = self.enemy.randomise_stats(self.enemy.damage)
+        self.enemy.loot = self.enemy.randomise_stats(self.enemy.loot)
 
         super().__init__(x, y)
 

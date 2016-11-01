@@ -1,5 +1,6 @@
 """Create player entity and define player actions"""
 
+import os
 import random
 
 import entities.weapons as weapons
@@ -88,7 +89,20 @@ class Player:
             enemy.hp -= best_weapon.damage
 
         if not enemy.is_alive():
-            print("\nYou killed {}!".format(enemy.name))
+            os.system('cls')
+            print("\n  ____   ____.___ _________  ___________________   __________ _____.___.._.")
+            print("  \\   \\ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")
+            print("   \\   Y   / |   |/    \\  \\/   |    |    /   |   \\  |       _/ /   |   || |")
+            print("    \\     /  |   |\\     \\____  |    |   /    |    \\ |    |   \\ \\____   | \\|")
+            print("     \\___/   |___| \\______  /  |____|   \\_______  / |____|_  / / ______| __")
+            print("                          \\/                    \\/         \\/  \\/        \\/")
+            print("\nYou killed the {}!".format(enemy.name))
+
+            loot_chance = random.randrange(1, 4)
+
+            if loot_chance == 3:
+                print("They dropped some loot! You recieved " + str(enemy.loot) + " gold.")
+                self.gold += enemy.loot
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))
 
