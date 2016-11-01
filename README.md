@@ -4,6 +4,11 @@
 
 A small text based RPG built in python, for shits and giggles.
 
+## Requirements
+You will need the following:
+* Python 3.x
+* configparser (pip install configparser)
+
 ## Synopsis
 Nothing Yet.
 

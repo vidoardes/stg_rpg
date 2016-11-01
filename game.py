@@ -1,6 +1,5 @@
 "Escape from Cave Terror!"""
 import os
-import operator
 from collections import OrderedDict
 
 from entities.player import Player
