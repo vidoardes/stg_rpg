@@ -294,5 +294,3 @@ def parse_world_dsl(map_file):
         world_map.append(row)
 
     return world_map
-
-

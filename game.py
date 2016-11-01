@@ -7,6 +7,7 @@ from collections import OrderedDict
 import maps.world as world
 from entities.player import Player
 
+
 class GameInit:
     def __init__(self):
         self.map = world.parse_world_dsl("maps/level1.map")
@@ -51,7 +52,6 @@ class GameManager:
                 input("Press Enter to continue...")
                 main_menu()
 
-
     def get_available_actions(self, room, player, list_available_actions):
         actions = OrderedDict()
 
@@ -92,11 +92,9 @@ class GameManager:
 
         return actions
 
-
     def action_adder(self, action_dict, hotkey, action):
         action_dict[hotkey.lower()] = action
         action_dict[hotkey.upper()] = action
-
 
     def choose_action(self, room, player):
         action = None
@@ -117,8 +115,8 @@ class GameManager:
                 print("You can't do that here")
 
     def save_game(self):
-        data = {"map" : self.map,
-                "player" : self.player}
+        data = {"map": self.map,
+                "player": self.player}
         if not os.path.exists('save'):
             os.makedirs('save')
 
