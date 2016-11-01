@@ -119,6 +119,9 @@ class GameManager:
     def save_game(self):
         data = {"map" : self.map,
                 "player" : self.player}
+        if not os.path.exists('save'):
+            os.makedirs('save')
+
         pickle.dump(data, open("save/save.dat", "wb"))
 
 
