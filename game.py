@@ -161,8 +161,15 @@ def main_menu():
                 main_menu()
         elif menu_choice == '3':
             clear()
-            print("Thanks for playing!")
-            exit()
+            quit_game = input("Are you sure you want to quit? (Y/N): ")
+
+            if quit_game == 'n':
+                main_menu()
+            elif quit_game == 'y':
+                print("Thanks for playing!")
+                exit()
+            else:
+                main_menu()
         elif menu_choice == '1':
             new_game = GameInit()
             start_game = GameManager()
