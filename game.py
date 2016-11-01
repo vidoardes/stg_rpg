@@ -57,38 +57,38 @@ class GameManager:
 
         if self.player.inventory:
             self.action_adder(actions, 'i', self.player.print_inventory)
-            list_available_actions['i'] = 'Show Inventory'
+            list_available_actions['i'] = 'Show (I)nventory'
 
         if isinstance(room, world.TraderTile):
             self.action_adder(actions, 't', self.player.trade)
-            list_available_actions['t'] = 'Trade'
+            list_available_actions['t'] = '(T)rade'
 
         if player.hp < 100:
             self.action_adder(actions, 'h', self.player.heal)
-            list_available_actions['h'] = 'Heal up'
+            list_available_actions['h'] = '(H)eal up'
 
         if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
             self.action_adder(actions, 'a', self.player.attack)
-            list_available_actions['a'] = 'Attack!'
+            list_available_actions['a'] = '(A)ttack!'
         else:
             if self.tile_at(room.x, room.y - 1):
                 self.action_adder(actions, 'n', self.player.move_north)
-                list_available_actions['n'] = 'Go north'
+                list_available_actions['n'] = 'Go (N)orth'
             if self.tile_at(room.x, room.y + 1):
                 self.action_adder(actions, 's', self.player.move_south)
-                list_available_actions['s'] = 'Go south'
+                list_available_actions['s'] = 'Go (S)outh'
             if self.tile_at(room.x + 1, room.y):
                 self.action_adder(actions, 'e', self.player.move_east)
-                list_available_actions['e'] = 'Go east'
+                list_available_actions['e'] = 'Go (E)ast'
             if self.tile_at(room.x - 1, room.y):
                 self.action_adder(actions, 'w', self.player.move_west)
-                list_available_actions['w'] = 'Go west'
-
-        self.action_adder(actions, 'q', quit_game)
-        list_available_actions['q'] = 'Quit'
+                list_available_actions['w'] = 'Go (W)est'
 
         self.action_adder(actions, 'p', self.save_game)
-        list_available_actions['p'] = 'Save'
+        list_available_actions['p'] = 'Save (P)rogress'
+
+        self.action_adder(actions, 'x', main_menu)
+        list_available_actions['x'] = 'E(x)it to Main Menu'
 
         return actions
 
@@ -123,6 +123,10 @@ class GameManager:
             os.makedirs('save')
 
         pickle.dump(data, open("save/save.dat", "wb"))
+        clear()
+        print("Your progress has been saved!")
+        input("Press enter to continue...")
+        main_menu()
 
 
 def clear():
@@ -158,7 +162,9 @@ def main_menu():
                 input("Press enter to continue...")
                 main_menu()
         elif menu_choice == '3':
-            quit_game()
+            clear()
+            print("Thanks for playing!")
+            exit()
         elif menu_choice == '1':
             new_game = GameInit()
             start_game = GameManager()
@@ -174,10 +180,6 @@ def load_game():
     load_game = GameManager()
     load_game.start_game(load_player, load_map, True)
 
-def quit_game():
-    clear()
-    print("Thanks for playing!")
-    exit()
 
 if __name__ == '__main__':
     main_menu()
