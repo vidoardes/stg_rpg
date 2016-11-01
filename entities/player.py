@@ -81,7 +81,7 @@ class Player:
         if miss_chance > 0.98:
             print("You missed your attack!")
         elif dodge_chance > 0.98:
-            print(enemy.Name + " dodged the attack!")
+            print(enemy.name + " dodged the attack!")
         else:
             print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
             enemy.hp -= best_weapon.damage
