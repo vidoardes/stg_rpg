@@ -1,11 +1,13 @@
-"Escape from Cave Terror!"""
+"""Save the Girl!"""
+
 import os
 from collections import OrderedDict
 
-from entities.player import Player
 import maps.world as world
+from entities.player import Player
 
-clear = lambda: os.system('cls')
+def clear():
+    return os.system('cls')
 
 
 def main_menu():

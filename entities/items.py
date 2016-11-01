@@ -1,3 +1,5 @@
+"""Define consumable items and their stats"""
+
 class Consumable:
     def __init__(self):
         raise NotImplementedError("Do not create raw Consumable objects.")

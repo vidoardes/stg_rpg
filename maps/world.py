@@ -1,7 +1,7 @@
+"""Define availible tiles and their actions, and build level from map file"""
+
 import sys
 import random
-import configparser
-import decimal
 
 import entities.enemies as enemies
 import entities.npc as npc
@@ -35,9 +35,9 @@ class StartTile(MapTile):
 class BoringTile(MapTile):
     def intro_text(self):
         print("\n                            v .   ._, |_  .,")
-        print("                         `-._\/  .  \ /    |/_")
-        print("                             \\  _\, y | \//")
-        print("                       _\_.___\\, \\/ -.\||")
+        print("                         `-._\\/  .  \\ /    |/_")
+        print("                             \\  _\\, y | \\//")
+        print("                       _\\_.___\\, \\/ -.\\||")
         print("                         `7-,--.`._||  / / ,")
         print("                         /'     `-. `./ / |/_.'")
         print("                                   |    |//")
@@ -45,7 +45,7 @@ class BoringTile(MapTile):
         print("                                   |-   |")
         print("                                   |   =|")
         print("                                   |    |")
-        print("              --------------------/ ,  . \--------._")
+        print("              --------------------/ ,  . \\--------._")
         print("\n This is a very boring part of the forest. Fuck all happens here")
 
 
@@ -118,7 +118,7 @@ class EnemyTile(MapTile):
             print(self.enemy.name + " has " + str(self.enemy.hp) + " HP")
         else:
             print("  ____   ____.___ _________  ___________________   __________ _____.___.._.")
-            print("  \\   \ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")
+            print("  \\   \\ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")
             print("   \\   Y   / |   |/    \\  \\/   |    |    /   |   \\  |       _/ /   |   || |")
             print("    \\     /  |   |\\     \\____  |    |   /    |    \\ |    |   \\ \\____   | \\|")
             print("     \\___/   |___| \\______  /  |____|   \\_______  / |____|_  / / ______| __")

@@ -1,3 +1,5 @@
+"""Create enemy entity and define stats"""
+
 import random
 import decimal
 

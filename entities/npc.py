@@ -1,3 +1,5 @@
+"""Define NPC's and their stats"""
+
 import random
 import entities.items as items
 
@@ -9,10 +11,10 @@ class NonPlayableCharacter():
     def __str__(self):
         return self.name
 
-    
+
 class Trader(NonPlayableCharacter):
     def __init__(self):
-        self.Name = "Trader"
+        self.name = "Trader"
         self.gold = random.randint(70, 150)
 
         self.inventory = []

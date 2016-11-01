@@ -1,3 +1,5 @@
+"""Create player entity and define player actions"""
+
 import random
 
 import entities.weapons as weapons
@@ -18,6 +20,10 @@ class Player:
         self.dex_stat = 1
         self.luc_stat = 1
         self.victory = False
+
+    def __str__(self):
+        return "Player\n HP: {} / ATK: {} / DEF: {} / DEX: {} / LUCK: {}".format(
+            self.hp, self.atk_stat, self.def_stat, self.dex_stat, self.luc_stat)
 
     def is_alive(self):
         return self.hp > 0
@@ -107,7 +113,7 @@ class Player:
                     valid = True
                 except (ValueError, IndexError):
                     print("Invalid choice, try again.")
-    
+
     def trade(self):
         room = world.tile_at(self.x, self.y)
         room.check_if_trade(self)

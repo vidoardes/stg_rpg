@@ -1,7 +1,13 @@
+"""Define weapons and their stats"""
+
 class Weapon:
     def __init__(self):
+        self.name = 'Undefined Weapon'
+        self.description = 'Undefined'
+        self.damage = 0
+        self.value = 0
         raise NotImplementedError("Not a real Weapon!")
-        
+
     def __str__(self):
         return self.name
 
@@ -20,7 +26,7 @@ class Dagger(Weapon):
         self.description = "A small dagger with some rust. " \
             "Somewhat more dangerous than a rock."
         self.damage = 10
-        self.value= 20
+        self.value = 20
 
 
 class RustySword(Weapon):
@@ -29,4 +35,4 @@ class RustySword(Weapon):
         self.description = "This sword is showing its age, " \
             "but still has some fight in it."
         self.damage = 20
-        value = 100
+        self.value = 100
