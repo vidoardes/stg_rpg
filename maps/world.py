@@ -101,6 +101,9 @@ class EnemyTile(MapTile):
             self.dead_text = "\nYou killed a rock. " \
                              "Now thats dedication!!"
 
+        self.enemy.hp = self.enemy.randomise_stats(self.enemy.hp)
+        self.enemy.damage = self.enemy.randomise_stats(self.enemy.damage)
+
         super().__init__(x, y)
 
     def intro_text(self):
@@ -112,6 +115,7 @@ class EnemyTile(MapTile):
             print("   \\___  /   |___| \\______  / \\___|_  /   |____|    __")
             print("       \\/                 \\/        \\/              \\/")
             print(self.alive_text)
+            print(self.enemy.name + " has " + str(self.enemy.hp) + " HP")
         else:
             print("  ____   ____.___ _________  ___________________   __________ _____.___.._.")
             print("  \\   \ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")

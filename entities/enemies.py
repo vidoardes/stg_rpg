@@ -1,3 +1,7 @@
+import random
+import decimal
+
+
 class Enemy:
     def __init__(self):
         raise NotImplementedError("Do not create raw Enemy objects.")
@@ -7,6 +11,10 @@ class Enemy:
 
     def is_alive(self):
         return self.hp > 0
+
+    def randomise_stats(self, stat):
+        hp_modifier = random.randrange(-10, 10) / 100
+        return decimal.Decimal(round(hp_modifier * stat, 0) + stat)
 
 
 class GiantSpider(Enemy):
