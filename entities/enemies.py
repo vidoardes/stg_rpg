@@ -31,6 +31,14 @@ class GiantSpider(Enemy):
         self.loot = 2
 
 
+class Goblin(Enemy):
+    def __init__(self):
+        self.name = "Goblin"
+        self.hp = 20
+        self.damage = 5
+        self.loot = 10
+
+
 class Ogre(Enemy):
     def __init__(self):
         self.name = "Ogre"

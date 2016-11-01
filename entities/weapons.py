@@ -35,4 +35,13 @@ class RustySword(Weapon):
         self.description = "This sword is showing its age, " \
             "but still has some fight in it."
         self.damage = 20
-        self.value = 100
+        self.value = 50
+
+
+class HeavyAxe(Weapon):
+    def __init__(self):
+        self.name = "Heavy Axe"
+        self.description = "It's an axe, and it's heavy." \
+            "What more do you want?"
+        self.damage = 40
+        self.value = 75

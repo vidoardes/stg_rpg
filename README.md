@@ -10,8 +10,8 @@ You will need Python 3 installed to run this game. Open a command prompt or shel
 Nothing Yet.
 
 ## Current Features
-* 4 enemy types with random encounters and loot drops
-* Multiple weapon types
+* 5 enemy types with random encounters and loot drops
+* 4 weapon types
 * Healing items
 * Customisable maps
 * Random loot from exploring
@@ -22,4 +22,5 @@ Nothing Yet.
 * Base stats: ATK, DEF, DEX, LUCK
 * Winning battles earn you EXP
 * Leveling system, with enemies leveling along with you
+* Puzzle tiles
 * More levels!

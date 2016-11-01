@@ -78,13 +78,19 @@ class EnemyTile(MapTile):
     def __init__(self, x, y):
         encounter_type = random.random()
 
-        if encounter_type < 0.50:
+        if encounter_type < 0.30:
             self.enemy = enemies.GiantSpider()
             self.alive_text = "\nA giant spider jumps down from " \
                               "its web and lands right in front " \
                               "of you!"
             self.dead_text = "\nThe lifeless corpse of the spider " \
                              "slumps in the corner. Creepy."
+        elif encounter_type < 0.60:
+            self.enemy = enemies.Goblin()
+            self.alive_text = "\nA nasty lttile goblin leaps out at you" \
+                              "and waves his stabby daggar at you!"
+            self.dead_text = "\nThe gblin exploded all over the walls." \
+                             "I'm not cleaning that up.'"
         elif encounter_type < 0.80:
             self.enemy = enemies.Ogre()
             self.alive_text = "\nA ogre blocks your path!"

@@ -36,7 +36,7 @@ class GameManager:
             room = self.tile_at(self.player.x, self.player.y)
             self.player.room = room
 
-            if room.visited == 0 or load_save == True:
+            if room.visited == 0 or load_save is True:
                 load_save = False
                 clear()
                 room.intro_text()

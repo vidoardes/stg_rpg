@@ -103,6 +103,14 @@ class Player:
             if loot_chance == 3:
                 print("They dropped some loot! You recieved " + str(enemy.loot) + " gold.")
                 self.gold += enemy.loot
+
+                if enemy.name == "Goblin" and random.randrange(1, 3) == 2:
+                    print("They also dropped their dagger. Sweet!")
+                    self.inventory.append(weapons.Dagger())
+
+                if enemy.name == "Rock Monster" and random.randrange(1, 3) == 2:
+                    print("They also dropped their heavy axe. Sweet!")
+                    self.inventory.append(weapons.Dagger())
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))
 
