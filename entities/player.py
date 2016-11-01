@@ -9,6 +9,7 @@ import maps.world as world
 
 class Player:
     def __init__(self):
+        self.room = None
         self.inventory = [weapons.Rock(),
                           items.CrustyBread()]
         self.x = world.start_tile_location[0]
@@ -29,7 +30,7 @@ class Player:
         return self.hp > 0
 
     def move(self, dx, dy):
-        world.tile_at(self.x, self.y).visited = 0
+        self.room.visited = 0
         self.x += dx
         self.y += dy
 
@@ -73,7 +74,7 @@ class Player:
 
     def attack(self):
         best_weapon = self.most_powerful_weapon()
-        room = world.tile_at(self.x, self.y)
+        room = self.room
         enemy = room.enemy
         dodge_chance = random.random()
         miss_chance = random.random()
@@ -115,5 +116,5 @@ class Player:
                     print("Invalid choice, try again.")
 
     def trade(self):
-        room = world.tile_at(self.x, self.y)
+        room = self.room
         room.check_if_trade(self)

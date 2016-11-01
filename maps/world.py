@@ -230,8 +230,6 @@ class FindGoldTile(MapTile):
             print("\n         Someone dropped some gold. You pick it up.")
 
 
-world_map = []
-
 start_tile_location = None
 
 tile_type_dict = {"VT": VictoryTile,
@@ -262,6 +260,7 @@ def is_dsl_valid(dsl):
 
 
 def parse_world_dsl(map_file):
+    world_map = []
     level_map = open(map_file, 'r').read()
 
     if not is_dsl_valid(level_map):
@@ -281,19 +280,19 @@ def parse_world_dsl(map_file):
                 break
 
             tile_type = tile_type_dict[dsl_cell]
+            tile = None
+
+            if tile_type is not None:
+                tile = tile_type(x, y)
+
             if tile_type == StartTile:
                 global start_tile_location
                 start_tile_location = x, y
-            row.append(tile_type(x, y) if tile_type else None)
+
+            row.append(tile)
 
         world_map.append(row)
 
+    return world_map
 
-def tile_at(x, y):
-    if x < 0 or y < 0:
-        return None
 
-    try:
-        return world_map[y][x]
-    except IndexError:
-        return None
