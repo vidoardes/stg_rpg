@@ -1,3 +1,5 @@
+import random
+
 import entities.weapons as weapons
 import entities.items as items
 import maps.world as world
@@ -67,8 +69,16 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = world.tile_at(self.x, self.y)
         enemy = room.enemy
-        print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
-        enemy.hp -= best_weapon.damage
+        dodge_chance = random.random()
+        miss_chance = random.random()
+
+        if miss_chance > 0.98:
+            print("You missed your attack!")
+        elif dodge_chance > 0.98:
+            print(enemy.Name + " dodged the attack!")
+        else:
+            print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
+            enemy.hp -= best_weapon.damage
 
         if not enemy.is_alive():
             print("\nYou killed {}!".format(enemy.name))
