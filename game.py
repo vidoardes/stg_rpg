@@ -29,13 +29,12 @@ def main_menu():
         menu_choice = input('\n>>> ')
 
         if menu_choice == '2':
-            clear()
-            print("Thanks for playing!")
-            exit()
+            quit_game()
         elif menu_choice == '1':
             start_new_game()
         else:
-            print("\nInvalid Option")
+            main_menu()
+
 
 def start_new_game():
     clear()
@@ -58,12 +57,9 @@ def start_new_game():
             clear()
             print("You have been slain. \"The Villian\" has got \"The Girl\" :(")
 
-def get_player_command():
-    return input('Action: ')
 
 def get_available_actions(room, player, list_available_actions):
     actions = OrderedDict()
-    print("\nChoose an action (type '?'' for help):")
 
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory)
@@ -94,6 +90,9 @@ def get_available_actions(room, player, list_available_actions):
             action_adder(actions, 'w', player.move_west)
             list_available_actions['w'] = 'Go west'
 
+    action_adder(actions, 'q', quit_game)
+    list_available_actions['q'] = 'Quit'
+
     return actions
 
 
@@ -119,5 +118,11 @@ def choose_action(room, player):
             action()
         else:
             print("You can't do that here")
+
+
+def quit_game():
+    clear()
+    print("Thanks for playing!")
+    exit()
 
 main_menu()
