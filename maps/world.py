@@ -127,9 +127,17 @@ class EnemyTile(MapTile):
 
     def modify_player(self, player):
         if self.enemy.is_alive():
-            player.hp = player.hp - round(round(decimal.Decimal(random.uniform(0.85, 1.15)), 2) * self.enemy.damage, 0)
-            print("Enemy does {} damage. You have {} HP remaining."
-                  .format(self.enemy.damage, player.hp))
+            dodge_chance = random.random()
+            miss_chance = random.random()
+
+            if miss_chance > 0.98:
+                print("The " + self.enemy.name + " missed!")
+            elif dodge_chance > 0.98:
+                print("You dodged the attack!")
+            else:
+                player.hp = player.hp - self.enemy.damage
+                print("The " + self.enemy.name + " does {} damage. You have {} HP remaining."
+                      .format(self.enemy.damage, player.hp))
 
 
 class TraderTile(MapTile):
