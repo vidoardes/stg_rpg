@@ -9,3 +9,6 @@ pip-log.txt
 *.orig
 *.log
 *.vscode
+
+# Bespoke
+*.dat

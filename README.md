@@ -17,10 +17,10 @@ Nothing Yet.
 * Customisable maps
 * Random loot from exploring
 * Trading posts
+* Save your progress
 
 ## Planned Updates
 * Base stats: ATK, DEF, DEX, LUCK
 * Winning battles earn you loot drops and EXP
 * Leveling system, with enemies leveling along with you
-* Save Progress
 * More levels!
