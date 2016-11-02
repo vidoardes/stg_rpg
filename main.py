@@ -2,6 +2,7 @@
 
 import os
 import pickle
+import re
 from collections import OrderedDict
 
 import maps.world as world
@@ -10,12 +11,14 @@ from entities.player import Player
 
 class GameInit:
     def __init__(self):
-        self.map = world.parse_world_dsl("maps/level1.map")
+        self.map = world.parse_world_dsl("assets/level1.map")
         self.player = Player()
 
 
 class GameManager:
     def __init__(self):
+        self.map = None
+        self.player = None
         pass
 
     def tile_at(self, x, y):
@@ -117,10 +120,15 @@ class GameManager:
     def save_game(self):
         data = {"map": self.map,
                 "player": self.player}
-        if not os.path.exists('save'):
-            os.makedirs('save')
+        if not os.path.exists('saves'):
+            os.makedirs('saves')
 
-        pickle.dump(data, open("save/save.dat", "wb"))
+        clear()
+        save_name = input("Please enter a filename for the save: ")
+
+        save_name = re.sub(r'\W+', '', save_name)
+
+        pickle.dump(data, open("saves/" + save_name + ".dat", "wb"))
         clear()
         print("Your progress has been saved!")
         input("Press enter to continue...")
@@ -152,13 +160,7 @@ def main_menu():
         menu_choice = input('\n>>> ')
 
         if menu_choice == '2':
-            if os.path.isfile('save/save.dat'):
-                load_game()
-            else:
-                clear()
-                print("No save file found!")
-                input("Press enter to continue...")
-                main_menu()
+            load_game()
         elif menu_choice == '3':
             clear()
             quit_game = input("Are you sure you want to quit? (Y/N): ")
@@ -179,11 +181,45 @@ def main_menu():
 
 
 def load_game():
-    load_save = pickle.load(open("save/save.dat", "rb"))
-    load_player = load_save["player"]
-    load_map = load_save["map"]
-    load_game = GameManager()
-    load_game.start_game(load_player, load_map, True)
+    list_saves = OrderedDict()
+    save_choice = None
+
+    if not os.path.exists('saves'):
+        os.makedirs('saves')
+
+    for idx, save_file in enumerate(os.listdir("saves")):
+        if save_file.endswith(".dat"):
+            list_saves[str(idx+1)] = save_file
+
+    if len(list_saves) > 0:
+        clear()
+        print(list_saves)
+        print("Your Saved Games")
+        print("----------------\n")
+
+        for key, val in list_saves.items():
+            print("    " + str(key) + ": " + val)
+
+        print("    q: Back to main menu")
+
+        while save_choice not in list_saves:
+            save_choice = input("\nPlease select which file you wish to load: ")
+
+            if save_choice == 'q':
+                main_menu()
+            elif save_choice in list_saves:
+                load_save = pickle.load(open("saves/" + list_saves[save_choice], "rb"))
+                load_player = load_save["player"]
+                load_map = load_save["map"]
+                load_game = GameManager()
+                load_game.start_game(load_player, load_map, True)
+            else:
+                print("Invalid Choice")
+    else:
+        clear()
+        print("No save file found!")
+        input("Press enter to continue...")
+        main_menu()
 
 
 if __name__ == '__main__':

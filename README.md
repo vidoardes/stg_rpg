@@ -4,7 +4,7 @@
 A small text based RPG built in python, for shits and giggles.
 
 ## Requirements
-You will need Python 3 installed to run this game. Open a command prompt or shell terminal and type 'game.py' to start!
+You will need Python 3 installed to run this game. Open a command prompt or shell terminal and type 'main.py' to start!
 
 ## Synopsis
 Nothing Yet.
