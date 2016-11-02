@@ -232,8 +232,9 @@ class FindGoldTile(MapTile):
     def modify_player(self, player):
         if not self.gold_claimed:
             self.gold_claimed = True
-            player.gold = player.gold + self.gold
-            print("\n                You found {} gold coins!".format(self.gold))
+            self.gold *= (player.luc_stat / 100)
+            player.gold += int(self.gold)
+            print("\n                You found {} gold coins!".format(int(self.gold)))
 
     def intro_text(self):
         print("\n           |#######=====================#######|")

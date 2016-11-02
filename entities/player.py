@@ -2,6 +2,7 @@
 
 import os
 import random
+import decimal
 
 import entities.weapons as weapons
 import entities.items as items
@@ -19,9 +20,9 @@ class Player:
         self.max_hp = 100
         self.gold = 5
         self.atk_stat = 1
-        self.def_stat = 1
         self.dex_stat = 1
-        self.luc_stat = 1
+        self.def_stat = 100
+        self.luc_stat = 100
         self.victory = False
 
     def __str__(self):
@@ -102,8 +103,10 @@ class Player:
             loot_chance = random.randrange(1, 4)
 
             if loot_chance == 3:
-                print("They dropped some loot! You recieved " + str(enemy.loot) + " gold.")
-                self.gold += enemy.loot
+                luc_mod = decimal.Decimal((self.luc_stat / 100))
+                enemy_loot = enemy.loot * luc_mod
+                self.gold += enemy_loot
+                print("They dropped some loot! You recieved " + str(enemy_loot) + " gold.")
 
                 if enemy.name == "Goblin" and random.randrange(1, 3) == 2:
                     print("They also dropped their dagger. Sweet!")
