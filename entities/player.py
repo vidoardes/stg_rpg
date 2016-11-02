@@ -19,9 +19,9 @@ class Player:
         self.curr_hp = 100
         self.max_hp = 100
         self.gold = 5
-        self.atk_stat = 1
-        self.dex_stat = 1
+        self.atk_stat = 100
         self.def_stat = 100
+        self.dex_stat = 100
         self.luc_stat = 100
         self.victory = False
 

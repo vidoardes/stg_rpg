@@ -2,6 +2,7 @@
 
 import sys
 import random
+import decimal
 
 import entities.enemies as enemies
 import entities.npc as npc
@@ -142,7 +143,9 @@ class EnemyTile(MapTile):
             elif dodge_chance > 0.98:
                 print("You dodged the attack!")
             else:
-                player.hp = player.hp - self.enemy.damage
+                def_mod = decimal.Decimal(2 - (player.def_stat / 100))
+                enemy_damage = int(self.enemy.damage * def_mod)
+                player.curr_hp -= enemy_damage
                 print("The " + self.enemy.name + " does {} damage. You have {} HP remaining."
                       .format(enemy_damage, player.curr_hp))
 
