@@ -135,8 +135,9 @@ class EnemyTile(MapTile):
 
     def modify_player(self, player):
         if self.enemy.is_alive():
-            dodge_chance = random.random()
-            miss_chance = random.random()
+            dex_mod = decimal.Decimal(player.dex_stat / 100)
+            dodge_chance = decimal.Decimal(random.random()) * dex_mod
+            miss_chance = decimal.Decimal(random.random()) * dex_mod
 
             if miss_chance > 0.98:
                 print("The " + self.enemy.name + " missed!")

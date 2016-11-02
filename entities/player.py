@@ -79,8 +79,9 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = self.room
         enemy = room.enemy
-        dodge_chance = random.random()
-        miss_chance = random.random()
+        dex_mod = decimal.Decimal(2 - (self.dex_stat / 100))
+        dodge_chance = decimal.Decimal(random.random()) * dex_mod
+        miss_chance = decimal.Decimal(random.random()) * dex_mod
 
         if miss_chance > 0.98:
             print("You missed your attack!")
@@ -88,7 +89,9 @@ class Player:
             print(enemy.name + " dodged the attack!")
         else:
             print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
-            enemy.hp -= best_weapon.damage
+            atk_mod = decimal.Decimal(self.atk_stat / 100)
+            weapon_dmg = int(best_weapon.damage * atk_mod)
+            enemy.hp -= weapon_dmg
 
         if not enemy.is_alive():
             os.system('cls')
