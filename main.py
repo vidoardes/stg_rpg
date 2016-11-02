@@ -87,8 +87,8 @@ class GameManager:
                 self.action_adder(actions, 'w', self.player.move_west)
                 list_available_actions['w'] = 'Go (W)est'
 
-        self.action_adder(actions, 'p', self.save_game)
-        list_available_actions['p'] = 'Save (P)rogress'
+            self.action_adder(actions, 'p', self.save_game)
+            list_available_actions['p'] = 'Save (P)rogress'
 
         self.action_adder(actions, 'x', main_menu)
         list_available_actions['x'] = 'E(x)it to Main Menu'
