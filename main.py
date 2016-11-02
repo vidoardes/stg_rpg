@@ -66,7 +66,7 @@ class GameManager:
             self.action_adder(actions, 't', self.player.trade)
             list_available_actions['t'] = '(T)rade'
 
-        if player.hp < 100:
+        if player.curr_hp < 100:
             self.action_adder(actions, 'h', self.player.heal)
             list_available_actions['h'] = '(H)eal up'
 

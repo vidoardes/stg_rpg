@@ -15,7 +15,8 @@ class Player:
                           items.CrustyBread()]
         self.x = world.start_tile_location[0]
         self.y = world.start_tile_location[1]
-        self.hp = 100
+        self.curr_hp = 100
+        self.max_hp = 100
         self.gold = 5
         self.atk_stat = 1
         self.def_stat = 1
@@ -25,10 +26,10 @@ class Player:
 
     def __str__(self):
         return "Player\n HP: {} / ATK: {} / DEF: {} / DEX: {} / LUCK: {}".format(
-            self.hp, self.atk_stat, self.def_stat, self.dex_stat, self.luc_stat)
+            self.curr_hp, self.atk_stat, self.def_stat, self.dex_stat, self.luc_stat)
 
     def is_alive(self):
-        return self.hp > 0
+        return self.curr_hp > 0
 
     def move(self, dx, dy):
         self.room.visited = 0
@@ -116,23 +117,32 @@ class Player:
 
     def heal(self):
         consumables = [item for item in self.inventory if isinstance(item, items.Consumable)]
+        heal_choice = None
 
         if not consumables:
-            print("You don't have any items to heal you!")
+            print("\nYou don't have any items to heal you!\n")
             return
 
-        for i, item in enumerate(consumables, 1):
-            print("Choose an item to use to heal: ")
-            print("{}. {}".format(i, item))
-            valid = False
+        print("\nHealing Items")
+        print("----------------\n")
 
-            while not valid:
-                choice = input("")
+        for i, item in enumerate(consumables, 1):
+            print("    {}: {}".format(i, item))
+
+        print("    q: Back to battle")
+        valid = False
+
+        while heal_choice not in consumables:
+            heal_choice = input("\nWhich item do you want to use?: ")
+
+            if heal_choice == 'q':
+                return
+            else:
                 try:
                     to_eat = consumables[int(choice) - 1]
-                    self.hp = min(100, self.hp + to_eat.healing_value)
+                    self.curr_hp = min(self.max_hp, self.curr_hp + to_eat.healing_value)
                     self.inventory.remove(to_eat)
-                    print("Current HP: {}".format(self.hp))
+                    print("Current HP: {}".format(self.curr_hp))
                     valid = True
                 except (ValueError, IndexError):
                     print("Invalid choice, try again.")

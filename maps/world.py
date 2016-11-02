@@ -144,7 +144,7 @@ class EnemyTile(MapTile):
             else:
                 player.hp = player.hp - self.enemy.damage
                 print("The " + self.enemy.name + " does {} damage. You have {} HP remaining."
-                      .format(self.enemy.damage, player.hp))
+                      .format(enemy_damage, player.curr_hp))
 
 
 class TraderTile(MapTile):
