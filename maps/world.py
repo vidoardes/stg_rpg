@@ -145,7 +145,7 @@ class EnemyTile(MapTile):
                 print("You dodged the attack!")
             else:
                 def_mod = decimal.Decimal(2 - (player.def_stat / 100))
-                enemy_damage = int(self.enemy.damage * def_mod)
+                enemy_damage = round(self.enemy.damage * def_mod, 0)
                 player.curr_hp -= enemy_damage
                 print("The " + self.enemy.name + " does {} damage. You have {} HP remaining."
                       .format(enemy_damage, player.curr_hp))
@@ -236,9 +236,10 @@ class FindGoldTile(MapTile):
     def modify_player(self, player):
         if not self.gold_claimed:
             self.gold_claimed = True
-            self.gold *= (player.luc_stat / 100)
-            player.gold += int(self.gold)
-            print("\n                You found {} gold coins!".format(int(self.gold)))
+            luc_mod = decimal.Decimal(player.luc_stat / 100)
+            found_loot = round(self.gold * luc_mod, 0) 
+            player.gold += found_loot
+            print("\n                You found {} gold coins!".format(found_loot))
 
     def intro_text(self):
         print("\n           |#######=====================#######|")

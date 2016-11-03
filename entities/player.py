@@ -93,7 +93,7 @@ class Player:
         else:
             print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
             atk_mod = decimal.Decimal(self.atk_stat / 100)
-            weapon_dmg = int(best_weapon.damage * atk_mod)
+            weapon_dmg = round(best_weapon.damage * atk_mod, 0)
             enemy.hp -= weapon_dmg
 
         if not enemy.is_alive():
@@ -110,7 +110,7 @@ class Player:
 
             if loot_chance == 3:
                 luc_mod = decimal.Decimal((self.luc_stat / 100))
-                enemy_loot = enemy.loot * luc_mod
+                enemy_loot = round(enemy.loot * luc_mod, 0)
                 self.gold += enemy_loot
                 print("They dropped some loot! You recieved " + str(enemy_loot) + " gold.")
 
