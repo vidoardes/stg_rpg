@@ -82,9 +82,9 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = self.room
         enemy = room.enemy
-        dex_mod = decimal.Decimal(2 - (self.dex_stat / 100))
-        dodge_chance = decimal.Decimal(random.random()) * dex_mod
-        miss_chance = decimal.Decimal(random.random()) * dex_mod
+        luck_mod = decimal.Decimal(2 - (self.luc_stat / 100))
+        dodge_chance = decimal.Decimal(random.random()) * luck_mod
+        miss_chance = decimal.Decimal(random.random()) * luck_mod
 
         if miss_chance > 0.98:
             print("You missed your attack!")
