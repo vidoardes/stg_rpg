@@ -209,7 +209,7 @@ def create_new_player(new_player):
     while class_choice not in ['1', '2', '3']:
         class_choice = input("Choose your class: ")
 
-        if class_choice =='1':
+        if class_choice == '1':
             new_player.base_class = 'Knight'
             new_player.max_hp = 110
             new_player.curr_hp = 110
@@ -258,7 +258,7 @@ def load_game():
         print("----------------\n")
 
         for key, val in list_saves.items():
-            print("    " + str(key) + ": " + val)
+            print("    {}: {}".format(key, value))
 
         print("    q: Back to main menu")
 

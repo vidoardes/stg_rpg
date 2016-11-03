@@ -123,7 +123,7 @@ class EnemyTile(MapTile):
             print("   \\___  /   |___| \\______  / \\___|_  /   |____|    __")
             print("       \\/                 \\/        \\/              \\/")
             print(self.alive_text)
-            print(self.enemy.name + " has " + str(self.enemy.hp) + " HP")
+            print("{} has {} HP".format(self.enemy.name, self.enemy.hp))
         else:
             print("  ____   ____.___ _________  ___________________   __________ _____.___.._.")
             print("  \\   \\ /   /|   |\\_   ___ \\ \\__    ___/\\_____  \\  \\______   \\\\__  |   || |")
@@ -140,15 +140,15 @@ class EnemyTile(MapTile):
             miss_chance = decimal.Decimal(random.random()) * dex_mod
 
             if miss_chance > 0.98:
-                print("The " + self.enemy.name + " missed!")
+                print("The {} missed!".format(self.enemy.name))
             elif dodge_chance > 0.98:
                 print("You dodged the attack!")
             else:
                 def_mod = decimal.Decimal(2 - (player.def_stat / 100))
                 enemy_damage = round(self.enemy.damage * def_mod, 0)
                 player.curr_hp -= enemy_damage
-                print("The " + self.enemy.name + " does {} damage. You have {} HP remaining."
-                      .format(enemy_damage, player.curr_hp))
+                print("The {} does {} damage. You have {} HP remaining."
+                      .format(self.enemy.name, enemy_damage, player.curr_hp))
 
 
 class TraderTile(MapTile):

@@ -89,7 +89,7 @@ class Player:
         if miss_chance > 0.98:
             print("You missed your attack!")
         elif dodge_chance > 0.98:
-            print(enemy.name + " dodged the attack!")
+            print("{} dodged the attack!".format(enemy.name))
         else:
             print("\nYou use a {} against the {}!".format(best_weapon.name, enemy.name))
             atk_mod = decimal.Decimal(self.atk_stat / 100)
@@ -112,7 +112,7 @@ class Player:
                 luc_mod = decimal.Decimal((self.luc_stat / 100))
                 enemy_loot = round(enemy.loot * luc_mod, 0)
                 self.gold += enemy_loot
-                print("They dropped some loot! You recieved " + str(enemy_loot) + " gold.")
+                print("They dropped some loot! You recieved {} gold.".format(enemy_loot))
 
                 if enemy.name == "Goblin" and random.randrange(1, 3) == 2:
                     print("They also dropped their dagger. Sweet!")
