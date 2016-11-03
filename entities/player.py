@@ -12,6 +12,7 @@ import maps.world as world
 class Player:
     def __init__(self):
         self.room = None
+        self.base_class = 'Knight'
         self.inventory = [weapons.Rock(),
                           items.CrustyBread()]
         self.x = world.start_tile_location[0]
@@ -50,7 +51,9 @@ class Player:
         self.move(dx=-1, dy=0)
 
     def print_inventory(self):
-        print("\nInventory:")
+        os.system('cls')
+        print("{}'s Inventory:".format(self.base_class))
+        print("{} / {} HP".format(self.curr_hp, self.max_hp))
         print("----------")
 
         for item in self.inventory:
@@ -59,7 +62,7 @@ class Player:
         print('\nGold: {}'.format(self.gold))
 
         best_weapon = self.most_powerful_weapon()
-        print('Best Weapon: {}'.format(best_weapon))
+        print('Best Weapon: {} ({} damage)'.format(best_weapon, best_weapon.damage))
 
     def most_powerful_weapon(self):
         max_damage = 0

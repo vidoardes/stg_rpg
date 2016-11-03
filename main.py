@@ -58,10 +58,6 @@ class GameManager:
     def get_available_actions(self, room, player, list_available_actions):
         actions = OrderedDict()
 
-        if self.player.inventory:
-            self.action_adder(actions, 'i', self.player.print_inventory)
-            list_available_actions['i'] = 'Show (I)nventory'
-
         if isinstance(room, world.TraderTile):
             self.action_adder(actions, 't', self.player.trade)
             list_available_actions['t'] = '(T)rade'
@@ -74,6 +70,10 @@ class GameManager:
             self.action_adder(actions, 'a', self.player.attack)
             list_available_actions['a'] = '(A)ttack!'
         else:
+            if self.player.inventory:
+                self.action_adder(actions, 'i', self.player.print_inventory)
+                list_available_actions['i'] = 'Show (I)nventory'
+
             if self.tile_at(room.x, room.y - 1):
                 self.action_adder(actions, 'n', self.player.move_north)
                 list_available_actions['n'] = 'Go (N)orth'
@@ -174,10 +174,70 @@ def main_menu():
                 main_menu()
         elif menu_choice == '1':
             new_game = GameInit()
-            start_game = GameManager()
-            start_game.start_game(new_game.player, new_game.map)
+            new_game_instance = GameManager()
+            create_new_player(new_game.player)
+            new_game_instance.start_game(new_game.player, new_game.map)
         else:
             main_menu()
+
+
+def create_new_player(new_player):
+    class_choice = None
+
+    clear()
+    print("Pick a class")
+    print("------------\n")
+
+    print("1. KNIGHT (Normal)")
+    print("110 HP / ATK 90 / DEF 100 / DEX 85 / LUCK 95")
+    print("Starting Gold: 10")
+    print("A good all rounder whos a jack of all trades, master of none.")
+    print("Your bog standard, run of the mill RPG guy.\n")
+
+    print("2. NINJA (Hard)")
+    print("75 HP / ATK 60 / DEF 60 / DEX 150 / LUCK 120")
+    print("Starting Gold: 5")
+    print("Doesn't hit very hard and can't take a punch, but dodges")
+    print("like my brother at bill time, and can find loot anywhere.\n")
+
+    print("3. GUARD (Expert)")
+    print("140 HP / ATK 55 / DEF 130 / DEX 10 / LUCK 105")
+    print("Starting Gold: 0")
+    print("He might take a while, but he does the best rope-a-dope around.")
+    print("Moves about as fast as your average glacier.\n")
+
+    while class_choice not in ['1', '2', '3']:
+        class_choice = input("Choose your class: ")
+
+        if class_choice =='1':
+            new_player.base_class = 'Knight'
+            new_player.max_hp = 110
+            new_player.curr_hp = 110
+            new_player.atk_stat = 90
+            new_player.def_stat = 100
+            new_player.dex_stat = 85
+            new_player.luc_stat = 95
+            new_player.gold = 10
+        elif class_choice == '2':
+            new_player.base_class = 'Ninja'
+            new_player.max_hp = 75
+            new_player.curr_hp = 75
+            new_player.atk_stat = 60
+            new_player.def_stat = 60
+            new_player.dex_stat = 150
+            new_player.luc_stat = 120
+            new_player.gold = 5
+        elif class_choice == '3':
+            new_player.base_class = 'Guard'
+            new_player.max_hp = 140
+            new_player.curr_hp = 140
+            new_player.atk_stat = 55
+            new_player.def_stat = 130
+            new_player.dex_stat = 10
+            new_player.luc_stat = 105
+            new_player.gold = 10
+        else:
+            print("Invalid choice!")
 
 
 def load_game():
@@ -214,7 +274,7 @@ def load_game():
                 load_game = GameManager()
                 load_game.start_game(load_player, load_map, True)
             else:
-                print("Invalid Choice")
+                print("Invalid choice!")
     else:
         clear()
         print("No save file found!")
