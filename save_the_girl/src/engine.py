@@ -122,16 +122,34 @@ class GameManager:
     def save_game(self):
         data = {"map": self.map,
                 "player": self.player}
+        list_saves = []
+        confirm_save = False
+
         if not os.path.exists('saves'):
             os.makedirs('saves')
 
-        os.system('cls')
-        save_name = input("Please enter a filename for the save: ")
+        for idx, save_file in enumerate(os.listdir("saves")):
+            if save_file.endswith(".dat"):
+                list_saves.append(save_file)
 
-        save_name = re.sub(r'\W+', '', save_name)
+        os.system('cls')
+
+        while confirm_save is False:
+            os.system('cls')
+            save_name = input("Please enter a filename for the save: ")
+            save_name = re.sub(r'\W+', '', save_name)
+
+            if save_name + ".dat" in list_saves:
+                overwrite_save = input("Save already exists, overwrite (y/n)? ")
+
+                if overwrite_save == 'y':
+                    confirm_save = True
+                    pass
+            else:
+                pass
 
         pickle.dump(data, open("saves/" + save_name + ".dat", "wb"))
-        os.system('cls')
+        os.system("cls")
         print("Your progress has been saved!")
         input("Press enter to continue...")
         self.player.room.visited = 0
