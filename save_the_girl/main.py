@@ -1,9 +1,11 @@
 """Save the Girl!"""
 
 import os
+import pickle
+from collections import OrderedDict
 
 import src.world as world
-import src.engine as game_engine
+from src.engine import GameInit, GameManager
 from src.player import Player
 
 
@@ -45,9 +47,9 @@ def main_menu():
             else:
                 main_menu()
         elif menu_choice == '1':
-            new_game = game_engine.GameInit()
+            new_game = GameInit()
             setup_player(new_game.player)
-            game_engine.GameManager().start_game(new_game.player, new_game.map)
+            GameManager().start_game(new_game.player, new_game.map)
 
 
 def setup_player(new_player):
@@ -126,7 +128,7 @@ def load_game():
         print("Your Saved Games")
         print("----------------\n")
 
-        for key, val in list_saves.items():
+        for key, value in list_saves.items():
             print("    {}: {}".format(key, value))
 
         print("    q: Back to main menu")
@@ -138,10 +140,7 @@ def load_game():
                 main_menu()
             elif save_choice in list_saves:
                 load_save = pickle.load(open("saves/" + list_saves[save_choice], "rb"))
-                load_player = load_save["player"]
-                load_map = load_save["map"]
-                load_game = GameManager()
-                load_game.start_game(load_player, load_map, True)
+                GameManager().start_game(load_save["player"], load_save["map"], True)
             else:
                 print("Invalid choice!")
     else:
