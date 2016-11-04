@@ -4,8 +4,8 @@ import sys
 import random
 import decimal
 
-import entities.enemies as enemies
-import entities.npc as npc
+import src.enemies as enemies
+import src.npc as npc
 
 
 class MapTile:

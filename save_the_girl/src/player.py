@@ -4,9 +4,9 @@ import os
 import random
 import decimal
 
-import entities.weapons as weapons
-import entities.items as items
-import maps.world as world
+import src.weapons as weapons
+import src.items as items
+import src.world as world
 
 
 class Player:

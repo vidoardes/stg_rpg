@@ -2,8 +2,8 @@
 
 import random
 
-import entities.items as items
-import entities.weapons as weapons
+import src.items as items
+import src.weapons as weapons
 
 
 class NonPlayableCharacter():
