@@ -1,20 +1,28 @@
 """Create player entity and define player actions"""
 
 import os
+import json
 import random
 import decimal
 
-import src.weapons as weapons
 import src.items as items
 import src.world as world
+import src.weapons as weapons
 
 
 class Player:
     def __init__(self):
         self.room = None
-        self.base_class = 'Knight'
-        self.inventory = [weapons.Rock(),
-                          items.CrustyBread()]
+        self.name = "Unnamed Soldier"
+        self.base_class = "Knight"
+        self.inventory = {
+            "Weapons": {
+                "Rock": {"obj": weapons.Rock(), "qty": 1}
+            },
+            "Items": {
+                "Crusty Bread": {"obj": items.CrustyBread(), "qty": 1}
+            }
+        }
         self.x = world.start_tile_location[0]
         self.y = world.start_tile_location[1]
         self.curr_hp = 100
@@ -54,12 +62,13 @@ class Player:
         os.system('cls')
         print("{}'s Inventory:".format(self.base_class))
         print("{} / {} HP".format(self.curr_hp, self.max_hp))
-        print("----------")
+        print("----------\n")
 
-        for item in self.inventory:
-            print('    * ' + str(item))
+        for item_cat, item_attr in self.inventory['Items'].items():
+            if item_attr["qty"] > 0:
+                print('    * {} x{}'.format(item_cat, item_attr["qty"]))
 
-        print('\nGold: {}'.format(self.gold))
+        print('\n{} Gold'.format(self.gold))
 
         best_weapon = self.most_powerful_weapon()
         print('Best Weapon: {} ({} damage)'.format(best_weapon, best_weapon.damage))
@@ -68,11 +77,11 @@ class Player:
         max_damage = 0
         best_weapon = None
 
-        for item in self. inventory:
+        for weapon_cat, weapon_attr in self.inventory['Weapons'].items():
             try:
-                if item.damage > max_damage:
-                    best_weapon = item
-                    max_damage = item.damage
+                if weapon_attr["obj"].damage > max_damage:
+                    best_weapon = weapon_attr["obj"]
+                    max_damage = weapon_attr["obj"].damage
             except AttributeError:
                 pass
 
@@ -116,45 +125,68 @@ class Player:
 
                 if enemy.name == "Goblin" and random.randrange(1, 3) == 2:
                     print("They also dropped their dagger. Sweet!")
-                    self.inventory.append(weapons.Dagger())
+
+                    if weapons.Dagger.name in self.inventory['Weapons'].items():
+                        for weapon_cat, weapon_attr in self.inventory['Weapons'].items():
+                            if item_cat == weapons.Dagger.name:
+                                item_attr["qty"] += 1
+                    else:
+                        self.inventory['Weapons'][weapons.Dagger.name] = {}
+                        self.inventory['Weapons'][weapons.Dagger.name]['obj'] = weapons.Dagger
+                        self.inventory['Weapons'][weapons.Dagger.name]['qty'] = 1
 
                 if enemy.name == "Rock Monster" and random.randrange(1, 3) == 2:
                     print("They also dropped their heavy axe. Sweet!")
-                    self.inventory.append(weapons.Dagger())
+
+                    if weapons.HeavyAxe.name in self.inventory['Weapons'].items():
+                        for weapon_cat, weapon_attr in self.inventory['Weapons'].items():
+                            if item_cat == weapons.HeavyAxe.name:
+                                item_attr["qty"] += 1
+                    else:
+                        self.inventory['Weapons'][weapons.Dagger.name] = {}
+                        self.inventory['Weapons'][weapons.Dagger.name]['obj'] = weapons.HeavyAxe
+                        self.inventory['Weapons'][weapons.Dagger.name]['qty'] = 1
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))
 
     def heal(self):
-        consumables = [item for item in self.inventory if isinstance(item, items.Consumable)]
         heal_choice = None
+        consumables = []
 
-        if not consumables:
-            print("\nYou don't have any items to heal you!\n")
-            return
+        for item_cat, item_attr in self.inventory['Items'].items():
+            if isinstance(item_attr["obj"], items.Consumable) and item_attr['qty'] > 0:
+                consumables.append(item_attr["obj"])
 
         print("\nHealing Items")
         print("----------------\n")
 
-        for i, item in enumerate(consumables, 1):
-            print("    {}: {}".format(i, item))
+        if not consumables:
+            print("You don't have any items to heal you!")
+        else:
+            for i, item in enumerate(consumables, 1):
+                print("    {}: {}".format(i, item.name))
 
-        print("    q: Back to battle")
-        valid = False
+        print("\nq: Back to battle")
 
         while heal_choice not in consumables:
             heal_choice = input("\nWhich item do you want to use?: ")
 
-            if heal_choice == 'q':
+            if heal_choice in ['Q', 'q']:
+                self.room.visited = 0
                 return
             else:
                 try:
-                    to_eat = consumables[int(choice) - 1]
+                    to_eat = consumables[int(heal_choice) - 1]
                     self.curr_hp = min(self.max_hp, self.curr_hp + to_eat.healing_value)
-                    self.inventory.remove(to_eat)
-                    print("Current HP: {}".format(self.curr_hp))
-                    valid = True
+                    for item_cat, item_attr in self.inventory['Items'].items():
+                        if item_cat == item.name:
+                            item_attr["qty"] -= 1
+                            self.room.visited = 0
+                            return
+
+                    print("HP: {} / {}".format(self.curr_hp, self.max_hp))
                 except (ValueError, IndexError):
-                    print("Invalid choice, try again.")
+                    print("Invalid choice!")
 
     def trade(self):
         room = self.room

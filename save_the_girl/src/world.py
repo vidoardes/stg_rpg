@@ -4,8 +4,8 @@ import sys
 import random
 import decimal
 
-import src.enemies as enemies
 import src.npc as npc
+import src.enemies as enemies
 
 
 class MapTile:
@@ -157,38 +157,73 @@ class TraderTile(MapTile):
         super().__init__(x, y)
 
     def trade(self, buyer, seller):
-        if len(seller.inventory) == 0:
-            return
+        if buyer.name == "Trader":
+            action = "sell"
+            buyer_char = "Trader"
+        else:
+            action = "buy"
+            buyer_char = "Player"
 
-        for i, item in enumerate(seller.inventory, 1):
-            print("{}. {} - {} Gold".format(i, item.name, item.value))
+        seller_inventory = []
+        item_choice = None
 
-        while True:
-            if len(seller.inventory) == 0:
-                return
+        for item_cat, item_attr in seller.inventory['Items'].items():
+            if item_attr["qty"] > 0:
+                seller_inventory.append(item_attr["obj"])
 
-            user_input = input("\nChoose an item or press Q to exit: ")
+        print("\nTrading Items")
+        print("----------------\n")
 
-            if user_input in ['Q', 'q']:
+        if not seller_inventory:
+            print("There are no items to sell!")
+        else:
+            for i, item in enumerate(seller_inventory, 1):
+                print("    {}: {}".format(i, item.name))
+
+        print("\nq: Cancel trade")
+
+        while item_choice not in seller_inventory:
+            item_choice = input("\nWhich item do you want to {}? ".format(action))
+
+            if item_choice in ['Q', 'q']:
+                if buyer_char == "Player":
+                    buyer.room.visited = 0
+                else:
+                    seller.room.visited = 0
+
                 return
             else:
                 try:
-                    choice = int(user_input)
-                    if choice > len(seller.inventory) or choice < 1:
-                        print("Invalid choice!")
-                    else:
-                        to_swap = seller.inventory[choice - 1]
-                        self.swap(seller, buyer, to_swap)
-                except ValueError:
+                    to_swap = seller_inventory[int(item_choice) - 1]
+                    self.swap(seller, buyer, to_swap)
+                except (ValueError, IndexError):
                     print("Invalid choice!")
 
     def swap(self, seller, buyer, item):
-        if item.value > buyer.gold:
-            print("That's too expensive")
-            return
+        if buyer.name == "Trader":
+            action = "sell"
+            buyer_char = "Trader"
+        else:
+            action = "buy"
+            buyer_char = "Player"
 
-        seller.inventory.remove(item)
-        buyer.inventory.append(item)
+        if item.value > buyer.gold:
+            print("That's too expensive!")
+            self.trade(buyer, seller)
+
+        for item_cat, item_attr in seller.inventory['Items'].items():
+            if item_cat == item.name:
+                item_attr["qty"] -= 1
+
+        if item.name in buyer.inventory['Items'].items():
+            for item_cat, item_attr in buyer.inventory['Items'].items():
+                if item_cat == item.name:
+                    item_attr["qty"] += 1
+        else:
+            buyer.inventory['Items'][item.name] = {}
+            buyer.inventory['Items'][item.name]['obj'] = item
+            buyer.inventory['Items'][item.name]['qty'] = 1
+
         seller.gold = seller.gold + item.value
         buyer.gold = buyer.gold - item.value
         print("Trade complete!")
@@ -197,12 +232,15 @@ class TraderTile(MapTile):
         while True:
             if len(self.trader.inventory) == 0:
                 print("No items to trade!")
+                player.room.visited = 0
                 return
 
             user_input = input("Would you like to (B)uy, (S)ell, or (Q)uit?: ")
 
             if user_input in ['Q', 'q']:
+                player.room.visited = 0
                 return
+
             elif user_input in ['B', 'b']:
                 print("Here's whats available to buy:\n")
                 self.trade(buyer=player, seller=self.trader)

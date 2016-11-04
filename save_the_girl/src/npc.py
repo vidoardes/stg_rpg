@@ -19,27 +19,34 @@ class Trader(NonPlayableCharacter):
         self.name = "Trader"
         self.gold = random.randint(70, 150)
 
-        self.inventory = []
+        self.inventory = {"Items": {}}
 
         crusty_bread_qty = random.randint(1, 4)
         potion_qty = random.randint(1, 3)
         hi_potion_qty = random.randint(1, 2)
 
-        for i in range(crusty_bread_qty):
-            self.inventory.append(items.CrustyBread())
+        self.inventory["Items"]["Crusty Bread"] = {}
+        self.inventory["Items"]["Crusty Bread"]["obj"] = items.CrustyBread()
+        self.inventory["Items"]["Crusty Bread"]["qty"] = crusty_bread_qty
 
         item_picker = random.randint(1, 10)
 
         if item_picker > 3:
-            for i in range(potion_qty):
-                self.inventory.append(items.Potion())
+            self.inventory["Items"]["Potion"] = {}
+            self.inventory["Items"]["Potion"]["obj"] = items.Potion()
+            self.inventory["Items"]["Potion"]["qty"] = potion_qty
 
         if item_picker > 5:
-            for i in range(hi_potion_qty):
-                self.inventory.append(items.HiPotion())
+            self.inventory["Items"]["Hi-Potion"] = {}
+            self.inventory["Items"]["Hi-Potion"]["obj"] = items.HiPotion()
+            self.inventory["Items"]["Hi-Potion"]["qty"] = hi_potion_qty
 
         if item_picker > 8:
-            self.inventory.append(items.XPotion())
+            self.inventory["Items"]["X-Potion"] = {}
+            self.inventory["Items"]["X-Potion"]["obj"] = items.XPotion()
+            self.inventory["Items"]["X-Potion"]["qty"] = 1
 
         if item_picker == 10:
-            self.inventory.append(weapons.RustySword())
+            self.inventory["Weapons"]["Rusty sword"] = {}
+            self.inventory["Weapons"]["Rusty sword"]["obj"] = weapons.RustySword()
+            self.inventory["Weapons"]["Rusty sword"]["qty"] = 1
