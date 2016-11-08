@@ -24,18 +24,30 @@ def main_menu():
         print(" | |__     ||  _  ||  |  ||  -__|      |   |  |     ||  -__|    |    |  ||  ||   _||  ||__| |")
         print(" | |_______||___._| \___/ |_____|      |___|  |__|__||_____|    |_______||__||__|  |__||__| |")
         print(" |__________________________________________________________________________________________|")
-
+        print("  Created by vidoardes                                                          version 0.2a ")
         print("\n   You are \"The Guy\" and everything was great, until \"The Villan\" came along and took your")
         print("    girl! Run through dungeons and battle creatures to rescue \"The Girl\" and save the day!")
-        print("\n              1. Start New Game")
-        print("              2. Load Saved Game")
-        print("              3. Exit")
+        print("\n              (S)tart New Game")
+        print("              (L)oad Saved Game")
+        print("              (C)redits")
+        print("              (Q)uit")
 
         menu_choice = input('\n>>> ')
 
-        if menu_choice == '2':
+        if menu_choice in ['L', 'l']:
             load_game()
-        elif menu_choice == '3':
+        elif menu_choice in ['C', 'c']:
+            clear()
+            print("                                                                                             ")
+            print("                                   CREATED BY VIDO ARDES                                     ")
+            print("                                     Copyright (c) 2016                                      ")
+            print("                                                                                             ")
+            print("                            Open sourced under the MIT License                               ")
+            print("               Visit https://github.com/vidoardes/stg_rpg/ for more details!                 ")
+            print("                                                                                             ")
+            input("")
+            main_menu()
+        elif menu_choice in ['Q', 'q']:
             clear()
             quit_game = input("Are you sure you want to quit? (Y/N): ")
 
@@ -46,7 +58,7 @@ def main_menu():
                 exit()
             else:
                 main_menu()
-        elif menu_choice == '1':
+        elif menu_choice in ['S', 's']:
             new_game = GameInit()
             setup_player(new_game.player)
             GameManager().start_game(new_game.player, new_game.map)
