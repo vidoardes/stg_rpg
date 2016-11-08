@@ -19,7 +19,7 @@ class Trader(NonPlayableCharacter):
         self.name = "Trader"
         self.gold = random.randint(70, 150)
 
-        self.inventory = {"Items": {}}
+        self.inventory = {"Weapons": {}, "Items": {}}
 
         crusty_bread_qty = random.randint(1, 4)
         potion_qty = random.randint(1, 3)
